@@ -79,6 +79,7 @@ var CLI = require("command-line-args")([
   { name: "invocation",alias: "i", type: Boolean, desc: "show invocation" },
   { name: "dry-run",   alias: "N", type: Boolean, desc: "prepare validation but don't execute" },
   { name: "regex-module",          type: String, typeLabel: "js module", multiple: false, defaultValue: undefined, description: "what regular expression modules to use" },
+  { name: "depth-limit",           type: Number, typeLabel: "integer",   multiple: false, defaultValue: undefined, description: "skip checks beyond this depth" },
 ]);
 var Argv1 = Path.relative("", process.argv[1]);
 var CliDir = Path.relative("", Path.resolve(__dirname, "../test/cli")) + Path.sep;
@@ -427,12 +428,13 @@ function runValidator (graph, shapeMap, schema, options) {
   Object.keys(extensions).forEach(function (ext) {
     extensions[ext].register(validator);
   });
+  var tracker = cmds["depth-limit"] ? validator.depthLimitTracker(cmds["depth-limit"]) : validator.emptyTracker();
 
   if (cmds["dry-run"])
     return 0;
 
   // run validator
-  var res = validator.validate(graph, shapeMap);
+  var res = validator.validate(graph, shapeMap, undefined, tracker);
 
   Object.keys(extensions).forEach(function (ext) {
     extensions[ext].done(validator);

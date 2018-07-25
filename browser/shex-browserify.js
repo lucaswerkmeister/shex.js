@@ -4363,6 +4363,30 @@ function ShExValidator_constructor(schema, options) {
     };
   };
 
+  /* depthLimitTracker - a tracker that skips checks beyond a certain depth
+   */
+  this.depthLimitTracker = function (depthLimit) {
+    var noop = x => x;
+    return {
+      recurse: noop,
+      known: noop,
+      enter: function (point, label) {
+        ++this.depth;
+        if (this.depth >= depthLimit)
+          return {
+            type: "DepthLimitReached",
+            node: ldify(point),
+            shape: label,
+            depth: this.depth
+          };
+      },
+      exit: function (point, label, ret) {
+        --this.depth;
+      },
+      depth: 0
+    };
+  };
+
   /* validate - test point in db against the schema for labelOrShape
    * depth: level of recurssion; for logging.
    */
@@ -4446,8 +4470,9 @@ function ShExValidator_constructor(schema, options) {
     if ("known" in this && seenKey in this.known)
       return tracker.known(this.known[seenKey]);
     seen[seenKey] = { point: point, shape: label };
-    tracker.enter(point, label);
-    var ret = this._validateShapeExpr(db, point, shape, label, tracker, seen);
+    var ret = tracker.enter(point, label);
+    if (ret === undefined)
+      ret = this._validateShapeExpr(db, point, shape, label, tracker, seen);
     tracker.exit(point, label, ret);
     delete seen[seenKey];
     if ("known" in this)
