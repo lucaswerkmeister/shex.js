@@ -1,0 +1,84 @@
+{
+  "type": "ShapeTest",
+  "node": "a",
+  "shape": "http://a.example/S",
+  "solution": {
+    "type": "TripleConstraintSolutions",
+    "predicate": "http://a.example/p",
+    "solutions": [
+      {
+        "type": "TestedTriple",
+        "subject": "a",
+        "predicate": "http://a.example/p",
+        "object": "b",
+        "referenced": {
+          "type": "ShapeTest",
+          "node": "b",
+          "shape": "http://a.example/S",
+          "solution": {
+            "type": "TripleConstraintSolutions",
+            "predicate": "http://a.example/p",
+            "solutions": [
+              {
+                "type": "TestedTriple",
+                "subject": "b",
+                "predicate": "http://a.example/p",
+                "object": "c",
+                "referenced": {
+                  "type": "ShapeTest",
+                  "node": "c",
+                  "shape": "http://a.example/S",
+                  "solution": {
+                    "type": "TripleConstraintSolutions",
+                    "predicate": "http://a.example/p",
+                    "solutions": [
+                      {
+                        "type": "TestedTriple",
+                        "subject": "c",
+                        "predicate": "http://a.example/p",
+                        "object": "d",
+                        "referenced": {
+                          "type": "ShapeTest",
+                          "node": "d",
+                          "shape": "http://a.example/S",
+                          "solution": {
+                            "type": "TripleConstraintSolutions",
+                            "predicate": "http://a.example/p",
+                            "solutions": [
+                              {
+                                "type": "TestedTriple",
+                                "subject": "d",
+                                "predicate": "http://a.example/p",
+                                "object": "e"
+                              }
+                            ],
+                            "valueExpr": {
+                              "type": "ShapeRef",
+                              "reference": "http://a.example/S"
+                            }
+                          }
+                        }
+                      }
+                    ],
+                    "valueExpr": {
+                      "type": "ShapeRef",
+                      "reference": "http://a.example/S"
+                    }
+                  }
+                }
+              }
+            ],
+            "valueExpr": {
+              "type": "ShapeRef",
+              "reference": "http://a.example/S"
+            }
+          }
+        }
+      }
+    ],
+    "valueExpr": {
+      "type": "ShapeRef",
+      "reference": "http://a.example/S"
+    }
+  }
+}

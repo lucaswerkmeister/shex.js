@@ -1,0 +1,91 @@
+{
+  "type": "Failure",
+  "node": "a",
+  "shape": "http://a.example/S",
+  "errors": [
+    {
+      "type": "TypeMismatch",
+      "triple": {
+        "type": "TestedTriple",
+        "subject": "a",
+        "predicate": "http://a.example/p",
+        "object": "b"
+      },
+      "constraint": {
+        "type": "TripleConstraint",
+        "predicate": "http://a.example/p",
+        "valueExpr": {
+          "type": "ShapeRef",
+          "reference": "http://a.example/S"
+        }
+      },
+      "errors": [
+        {
+          "type": "TypeMismatch",
+          "triple": {
+            "type": "TestedTriple",
+            "subject": "b",
+            "predicate": "http://a.example/p",
+            "object": "c"
+          },
+          "constraint": {
+            "type": "TripleConstraint",
+            "predicate": "http://a.example/p",
+            "valueExpr": {
+              "type": "ShapeRef",
+              "reference": "http://a.example/S"
+            }
+          },
+          "errors": [
+            {
+              "type": "TypeMismatch",
+              "triple": {
+                "type": "TestedTriple",
+                "subject": "c",
+                "predicate": "http://a.example/p",
+                "object": "d"
+              },
+              "constraint": {
+                "type": "TripleConstraint",
+                "predicate": "http://a.example/p",
+                "valueExpr": {
+                  "type": "ShapeRef",
+                  "reference": "http://a.example/S"
+                }
+              },
+              "errors": [
+                {
+                  "type": "TypeMismatch",
+                  "triple": {
+                    "type": "TestedTriple",
+                    "subject": "d",
+                    "predicate": "http://a.example/p",
+                    "object": "e"
+                  },
+                  "constraint": {
+                    "type": "TripleConstraint",
+                    "predicate": "http://a.example/p",
+                    "valueExpr": {
+                      "type": "ShapeRef",
+                      "reference": "http://a.example/S"
+                    }
+                  },
+                  "errors": [
+                    {
+                      "type": "MissingProperty",
+                      "property": "http://a.example/p",
+                      "valueExpr": {
+                        "type": "ShapeRef",
+                        "reference": "http://a.example/S"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

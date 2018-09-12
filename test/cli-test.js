@@ -79,6 +79,8 @@ var AllTests = {
     { name: "test-name", args: ["--json-manifest", "cli/manifest-results.json", "--test-name", "1dotOr2dot-someOf_pass_p1-p2p3"], resultText: "true\n", status: 0 },
     { name: "shape-map", args: ["--json-manifest", "cli/manifest-results.json", "--map", '[{"node":"x", "shape":"http://a.example/S1"}]'], resultText: "true\ntrue\ntrue\ntrue\ntrue\ntrue\ntrue\n", status: 0 },
     { name: "shape-map-fail", args: ["--json-manifest", "cli/manifest-results.json", "--map", '[{"node":"y", "shape":"http://a.example/S1"}]'], resultMatch: "false", status: 3 },
+    { name: "cycle-local" , args: ["-x", "cli/cycle.shex", "-s", "http://a.example/S", "-d", "cli/cycle.ttl", "-n", "a"], result: "cli/cycle_fail.val", status: 2 },
+    { name: "cycle-local-depth-limit" , args: ["-x", "cli/cycle.shex", "-s", "http://a.example/S", "-d", "cli/cycle.ttl", "-n", "a", "--depth-limit", "5"], result: "cli/cycle_pass_depth_limit.val", status: 0 },
     //  --dry-run
     { name: "simple-dry" , args: ["-x", "cli/1dotOr2dot.shex", "-s", "http://a.example/S1", "-d", "cli/p1.ttl", "-n", "x", "--dry-run"], resultText: "", status: 0 },
     { name: "simple-as-jsonld-dry" , args: ["--jsonld-manifest", "cli/manifest-simple.jsonld", "--dry-run"], resultText: "", status: 0 },
